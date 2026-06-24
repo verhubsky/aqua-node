@@ -16,6 +16,9 @@ class FishBatch(object):
         self.__avg_weight += random() * self.GROW_COEF
 
     def die(self) -> None:
+        self.__avg_weight = max(
+            0.0, self.__avg_weight - (random() * self.GROW_COEF * 0.5)
+        )
         self.__count = max(0, self.__count - int(random() * self.DIE_COEF))
 
     @property

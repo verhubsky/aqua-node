@@ -38,6 +38,7 @@ class Pool(object):
         self.aerate_water()
         self.clean_filter()
 
+        # If there are fish on farm
         if self.fishes.count > 0:
             if self.feeder.current_load > 0:
                 self.feeder.feed_fishes()
@@ -45,9 +46,15 @@ class Pool(object):
             else:
                 self.fishes.die()
 
-            self.__pollution_level += random() * self.POLLUTION_COEF
-            self.__oxygen_level -= random() * self.OXYGEN_COEF
+            # More fish weigth -> more polluion and more they consume xygen
+            biomass_factor = (self.fishes.count * self.fishes.avg_weight) / 20000.0
 
+            self.__pollution_level += (random() * self.POLLUTION_COEF) * (
+                1 + biomass_factor
+            )
+            self.__oxygen_level -= (random() * self.OXYGEN_COEF) * (1 + biomass_factor)
+
+        # Critical problems on farm
         if self.__oxygen_level < 15 or self.__pollution_level > 65:
             self.fishes.die()
 
