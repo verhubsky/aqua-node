@@ -46,10 +46,16 @@ class AquaFarm(object):
         if fishes.count <= 0:
             return 0
 
-        revenue = fishes.count * (fishes.avg_weight / 1000) * 350
-        self.__budget += revenue
+        profit = fishes.count * (fishes.avg_weight / 1000) * 350
+        self.__budget += profit
         fishes.count = 0
-        return revenue
+
+        return profit
+
+    def get_pools_sorted_by_weight(self) -> list[Pool]:
+        return sorted(
+            self.__pools.values(), key=lambda pool: pool.fishes.avg_weight, reverse=True
+        )
 
     @property
     def budget(self) -> float:
