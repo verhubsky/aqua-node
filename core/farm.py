@@ -57,6 +57,15 @@ class AquaFarm(object):
             self.__pools.values(), key=lambda pool: pool.fishes.avg_weight, reverse=True
         )
 
+    def calculate_total_biomass(self) -> float:
+        total_weight_kg = 0
+
+        for pool in self.__pools.values():
+            if pool.fishes.count > 0:
+                total_weight_kg += (pool.fishes.avg_weight / 1000) * pool.fishes.count
+
+        return total_weight_kg
+
     @property
     def budget(self) -> float:
         return self.__budget
