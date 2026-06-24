@@ -19,6 +19,7 @@ def main() -> None:
             print("3. Вывести статус рыб в бассейнах")
             print("4. Продать рыбу")
             print("5. Сортировка бассейнов по весу")
+            print("6. Подсчёт итоговой биомассы")
             print("0. Выход")
 
             choice = input("Выберите действие: ")
@@ -88,6 +89,11 @@ def main() -> None:
                             f"Вид: {pool.fishes.species} | "
                             f"Средний вес: {pool.fishes.avg_weight:.2f} г."
                         )
+
+                case "6":
+                    print(
+                        f"\nИтоговая масса рыб на ферме: {int(farm.calculate_total_biomass())}кг"
+                    )
 
                 case "0":
                     print("Завершение работы симулятора.")
